@@ -1,7 +1,10 @@
 package school.dao;
 
 import school.config.DataSourceConfig;
-import school.entity.*;
+import school.entity.Course;
+import school.entity.CourseStudents;
+import school.entity.Item;
+import school.entity.Student;
 import school.exception.DataNotFoundException;
 import school.exception.ModificationDataException;
 
@@ -9,9 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class CourseStudentsDao {
@@ -21,7 +22,7 @@ public class CourseStudentsDao {
     public void save(Item entity) {
         try {
             connection = dataSourceConfig.createDataSource().getConnection();
-            try (PreparedStatement ps = connection.prepareStatement("INSERT INTO maktab.course_students (s_id, c_id, grade) VALUES(?, ?, ?);");) {
+            try (PreparedStatement ps = connection.prepareStatement("INSERT INTO maktab.course_students (s_id, c_id, grade) VALUES(?, ?, ?);")) {
                 ps.setInt(1, entity.getStudent().getId());
                 ps.setInt(2, entity.getCourse().getId());
                 ps.setInt(3, entity.getGrade());
@@ -41,7 +42,7 @@ public class CourseStudentsDao {
 
     public void update(Integer id, Integer id2, Item newEntity) {
         try (Connection connection = dataSourceConfig.createDataSource().getConnection();
-             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.course_students SET grade = ? WHERE s_id = " + id + " AND c_id = " + id2);) {
+             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.course_students SET grade = ? WHERE s_id = " + id + " AND c_id = " + id2)) {
             ps.setInt(1, newEntity.getGrade());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -67,7 +68,7 @@ public class CourseStudentsDao {
              PreparedStatement ps = connection.prepareStatement("SELECT * FROM maktab.course_students WHERE s_id = ? AND c_id = ?;")) {
             ps.setInt(1, id);
             ps.setInt(2, id2);
-            try (ResultSet resultSet = ps.executeQuery();) {
+            try (ResultSet resultSet = ps.executeQuery()) {
                 Item item = null;
                 while (resultSet.next()) {
                     int studentId = resultSet.getInt("s_id");
@@ -88,10 +89,10 @@ public class CourseStudentsDao {
     public CourseStudents loadAll() {
         try (Connection connection = dataSourceConfig.createDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement("SELECT * FROM maktab.course_students");
-             ResultSet resultSet = ps.executeQuery();) {
+             ResultSet resultSet = ps.executeQuery()) {
             CourseStudents courseStudents = new CourseStudents();
             Set<Item> items = new HashSet<>();
-            Item item = null;
+            Item item;
             while (resultSet.next()) {
                 int studentId = resultSet.getInt("s_id");
                 Student student = new StudentDao().loadById(studentId);

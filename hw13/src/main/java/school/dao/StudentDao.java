@@ -22,7 +22,7 @@ public class StudentDao implements BaseDao<Student, Integer> {
     public void save(Student entity) {
         try {
             connection = dataSourceConfig.createDataSource().getConnection();
-            try (PreparedStatement ps = connection.prepareStatement("INSERT INTO maktab.student (name, family_name, m_id_fk) VALUES(?, ?, ?)");) {
+            try (PreparedStatement ps = connection.prepareStatement("INSERT INTO maktab.student (name, family_name, m_id_fk) VALUES(?, ?, ?)")) {
                 ps.setString(1, entity.getName());
                 ps.setString(2, entity.getFamilyName());
                 ps.setInt(3, entity.getMajor().getId());
@@ -43,7 +43,7 @@ public class StudentDao implements BaseDao<Student, Integer> {
     @Override
     public void update(Integer id, Student newEntity) {
         try (Connection connection = dataSourceConfig.createDataSource().getConnection();
-             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.student SET name = ?, family_name = ?, m_id_fk = ? WHERE id = " + id);) {
+             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.student SET name = ?, family_name = ?, m_id_fk = ? WHERE id = " + id)) {
             ps.setString(1, newEntity.getName());
             ps.setString(2, newEntity.getFamilyName());
             ps.setInt(3, newEntity.getMajor().getId());
@@ -71,7 +71,7 @@ public class StudentDao implements BaseDao<Student, Integer> {
         try (Connection connection = dataSourceConfig.createDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement("SELECT * FROM maktab.student WHERE id = ?")) {
             ps.setInt(1, id);
-            try (ResultSet resultSet = ps.executeQuery();) {
+            try (ResultSet resultSet = ps.executeQuery()) {
                 Student student = null;
                 while (resultSet.next()) {
                     int studentId = resultSet.getInt("id");
@@ -92,7 +92,7 @@ public class StudentDao implements BaseDao<Student, Integer> {
     public List<Student> loadAll() {
         try (Connection connection = dataSourceConfig.createDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement("SELECT * FROM maktab.student");
-             ResultSet resultSet = ps.executeQuery();) {
+             ResultSet resultSet = ps.executeQuery()) {
             List<Student> students = new ArrayList<>();
             while (resultSet.next()) {
                 int studentId = resultSet.getInt("id");

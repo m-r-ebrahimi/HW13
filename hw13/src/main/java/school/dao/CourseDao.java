@@ -21,7 +21,7 @@ public class CourseDao implements BaseDao<Course, Integer> {
     public void save(Course entity) {
         try {
             connection = dataSourceConfig.createDataSource().getConnection();
-            try (PreparedStatement ps = connection.prepareStatement("INSERT INTO maktab.course (name, unit) VALUES(?, ?);");) {
+            try (PreparedStatement ps = connection.prepareStatement("INSERT INTO maktab.course (name, unit) VALUES(?, ?);")) {
                 ps.setString(1, entity.getName());
                 ps.setInt(2, entity.getUnit());
                 ps.executeUpdate();
@@ -41,7 +41,7 @@ public class CourseDao implements BaseDao<Course, Integer> {
     @Override
     public void update(Integer id, Course newEntity) {
         try (Connection connection = dataSourceConfig.createDataSource().getConnection();
-             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.course SET name = ?, unit = ? WHERE c_id =" + id);) {
+             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.course SET name = ?, unit = ? WHERE c_id =" + id)) {
             ps.setString(1, newEntity.getName());
             ps.setInt(2, newEntity.getUnit());
             ps.executeUpdate();
@@ -68,7 +68,7 @@ public class CourseDao implements BaseDao<Course, Integer> {
         try (Connection connection = dataSourceConfig.createDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement("SELECT * FROM maktab.course WHERE c_id = ?")) {
             ps.setInt(1, id);
-            try (ResultSet resultSet = ps.executeQuery();) {
+            try (ResultSet resultSet = ps.executeQuery()) {
                 Course course = null;
                 while (resultSet.next()) {
                     int courseId = resultSet.getInt("c_id");
@@ -88,7 +88,7 @@ public class CourseDao implements BaseDao<Course, Integer> {
     public List<Course> loadAll() {
         try (Connection connection = dataSourceConfig.createDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement("SELECT * FROM maktab.course");
-             ResultSet resultSet = ps.executeQuery();) {
+             ResultSet resultSet = ps.executeQuery()) {
             List<Course> courses = new ArrayList<>();
             while (resultSet.next()) {
                 int courseId = resultSet.getInt("c_id");

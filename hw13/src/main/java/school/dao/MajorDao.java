@@ -21,7 +21,7 @@ public class MajorDao implements BaseDao<Major, Integer> {
     public void save(Major entity) {
         try {
             connection = dataSourceConfig.createDataSource().getConnection();
-            try (PreparedStatement ps = connection.prepareStatement("INSERT INTO maktab.major (name) VALUES(?);");) {
+            try (PreparedStatement ps = connection.prepareStatement("INSERT INTO maktab.major (name) VALUES(?);")) {
                 ps.setString(1, entity.getName());
                 ps.executeUpdate();
             }
@@ -40,7 +40,7 @@ public class MajorDao implements BaseDao<Major, Integer> {
     @Override
     public void update(Integer id, Major newEntity) {
         try (Connection connection = dataSourceConfig.createDataSource().getConnection();
-             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.major SET name = ? WHERE m_id = " + id);) {
+             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.major SET name = ? WHERE m_id = " + id)) {
             ps.setString(1, newEntity.getName());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -66,7 +66,7 @@ public class MajorDao implements BaseDao<Major, Integer> {
         try (Connection connection = dataSourceConfig.createDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement("SELECT * FROM maktab.major WHERE m_id = ?")) {
             ps.setInt(1, id);
-            try (ResultSet resultSet = ps.executeQuery();) {
+            try (ResultSet resultSet = ps.executeQuery()) {
                 Major major = null;
                 while (resultSet.next()) {
                     int majorId = resultSet.getInt("m_id");
@@ -85,7 +85,7 @@ public class MajorDao implements BaseDao<Major, Integer> {
     public List<Major> loadAll() {
         try (Connection connection = dataSourceConfig.createDataSource().getConnection();
              PreparedStatement ps = connection.prepareStatement("SELECT * FROM maktab.major");
-             ResultSet resultSet = ps.executeQuery();) {
+             ResultSet resultSet = ps.executeQuery()) {
             List<Major> majors = new ArrayList<>();
             while (resultSet.next()) {
                 int majorId = resultSet.getInt("m_id");
