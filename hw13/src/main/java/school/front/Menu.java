@@ -1,6 +1,5 @@
 package school.front;
 
-import school.dao.CourseStudentsDao;
 import school.entity.Course;
 import school.entity.Item;
 import school.entity.Major;
@@ -13,16 +12,15 @@ import school.service.StudentService;
 import java.util.Scanner;
 
 public class Menu {
-    private Integer select;
-    private Scanner input = new Scanner(System.in);
+    private final Scanner input = new Scanner(System.in);
 
     public void option() {
         while (true) {
-            System.out.println("1.student, 2.major, 3.course, 4.grade, 5.exit");
-            select = input.nextInt();
+            printMenu();
+            int select = input.nextInt();
             input.nextLine();
             if (select == 1) {
-                System.out.println("1.add, 2.del, 3.readById, 4.readAll");
+                printOptions();
                 select = input.nextInt();
                 input.nextLine();
                 if (select == 1) {
@@ -49,7 +47,7 @@ public class Menu {
                     System.out.println(new StudentService().loadAll());
                 }
             } else if (select == 2) {
-                System.out.println("1.add, 2.del, 3.readById, 4.readAll");
+                printOptions();
                 select = input.nextInt();
                 input.nextLine();
                 if (select == 1) {
@@ -70,7 +68,7 @@ public class Menu {
                     System.out.println(new MajorService().loadAll());
                 }
             } else if (select == 3) {
-                System.out.println("1.add, 2.del, 3.readById, 4.readAll");
+                printOptions();
                 select = input.nextInt();
                 input.nextLine();
                 if (select == 1) {
@@ -94,7 +92,7 @@ public class Menu {
                     System.out.println(new CourseService().loadAll());
                 }
             } else if (select == 4) {
-                System.out.println("1.add, 2.del, 3.readById, 4.readAll");
+                printOptions();
                 select = input.nextInt();
                 input.nextLine();
                 if (select == 1) {
@@ -131,8 +129,35 @@ public class Menu {
                 }
             } else if (select == 5) {
                 break;
+            } else {
+                System.out.println("You entered wrong number... please select again.");
             }
         }
+    }
+
+    public void printMenu() {
+        System.out.println("""
+                                    
+                Please select the Entity:
+                1.student
+                2.major
+                3.course
+                4.grade
+                5.exit
+                                    
+                """);
+    }
+
+    public void printOptions() {
+        System.out.println("""
+                                        
+                What do you want do?
+                1.add
+                2.del
+                3.readById
+                4.readAll
+                                        
+                """);
     }
 }
 
