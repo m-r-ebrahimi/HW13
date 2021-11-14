@@ -11,7 +11,6 @@ public class CourseStudents {
     }
 
     public CourseStudents() {
-
     }
 
     public Set<Item> getItems() {

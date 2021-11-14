@@ -41,7 +41,7 @@ public class CourseDao implements BaseDao<Course, Integer> {
     @Override
     public void update(Integer id, Course newEntity) {
         try (Connection connection = dataSourceConfig.createDataSource().getConnection();
-             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.course SET name = ?, unit = ? WHERE c_id =;" + id);) {
+             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.course SET name = ?, unit = ? WHERE c_id =" + id);) {
             ps.setString(1, newEntity.getName());
             ps.setInt(2, newEntity.getUnit());
             ps.executeUpdate();

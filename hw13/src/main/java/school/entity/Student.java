@@ -138,5 +138,4 @@ public class Student implements BaseEntity<Integer> {
             return new Student(id, name, familyName, major, courses);
         }
     }
-
 }

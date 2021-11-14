@@ -41,7 +41,7 @@ public class CourseStudentsDao {
 
     public void update(Integer id, Integer id2, Item newEntity) {
         try (Connection connection = dataSourceConfig.createDataSource().getConnection();
-             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.course_students SET grade = ? WHERE s_id =" + id + " AND c_id =" + id2);) {
+             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.course_students SET grade = ? WHERE s_id = " + id + " AND c_id = " + id2);) {
             ps.setInt(1, newEntity.getGrade());
             ps.executeUpdate();
         } catch (SQLException e) {

@@ -33,15 +33,15 @@ public class Menu {
                     System.out.println("Enter major id: ");
                     int majorId = input.nextInt();
                     input.nextLine();
-                    Major major = new MajorService().loadById(majorId);
+                    Major major = new MajorService().getBaseDao().loadById(majorId);
                     new StudentService().saveOrUpdate(Student.builder().name(name).familyName(familyName).major(major).build());
                 } else if (select == 2) {
-                    System.out.println("Enter student id: ");
+                    System.out.println("Enter id: ");
                     int id = input.nextInt();
                     input.nextLine();
                     new StudentService().delete(id);
                 } else if (select == 3) {
-                    System.out.println("Enter student id: ");
+                    System.out.println("Enter id: ");
                     int id = input.nextInt();
                     input.nextLine();
                     System.out.println(new StudentService().loadById(id));
@@ -53,16 +53,16 @@ public class Menu {
                 select = input.nextInt();
                 input.nextLine();
                 if (select == 1) {
-                    System.out.println("Enter major name: ");
+                    System.out.println("Enter student name: ");
                     String name = input.nextLine();
                     new MajorService().saveOrUpdate(Major.builder().name(name).build());
                 } else if (select == 2) {
-                    System.out.println("Enter major id: ");
+                    System.out.println("Enter id: ");
                     int id = input.nextInt();
                     input.nextLine();
                     new MajorService().delete(id);
                 } else if (select == 3) {
-                    System.out.println("Enter major id: ");
+                    System.out.println("Enter id: ");
                     int id = input.nextInt();
                     input.nextLine();
                     System.out.println(new MajorService().loadById(id));
@@ -74,19 +74,19 @@ public class Menu {
                 select = input.nextInt();
                 input.nextLine();
                 if (select == 1) {
-                    System.out.println("Enter course name: ");
+                    System.out.println("Enter name: ");
                     String name = input.nextLine();
-                    System.out.println("Enter course unit: ");
+                    System.out.println("Enter unit: ");
                     int unit = input.nextInt();
                     input.nextLine();
                     new CourseService().saveOrUpdate(Course.builder().name(name).unit(unit).build());
                 } else if (select == 2) {
-                    System.out.println("Enter course id: ");
+                    System.out.println("Enter id: ");
                     int id = input.nextInt();
                     input.nextLine();
                     new CourseService().delete(id);
                 } else if (select == 3) {
-                    System.out.println("Enter course id: ");
+                    System.out.println("Enter id: ");
                     int id = input.nextInt();
                     input.nextLine();
                     System.out.println(new CourseService().loadById(id));
@@ -98,41 +98,39 @@ public class Menu {
                 select = input.nextInt();
                 input.nextLine();
                 if (select == 1) {
-                    System.out.println("Enter student id: ");
-                    int studentId = input.nextInt();
+                    System.out.println("Enter student's id: ");
+                    int num = input.nextInt();
                     input.nextLine();
-                    Student student = new StudentService().loadById(studentId);
-                    System.out.println("Enter course id: ");
-                    int courseId = input.nextInt();
+                    Student student = new StudentService().loadById(num);
+                    System.out.println("Enter course's id: ");
+                    num = input.nextInt();
                     input.nextLine();
-                    Course course = new CourseService().loadById(courseId);
+                    Course course = new CourseService().loadById(num);
                     System.out.println("Enter grade: ");
-                    int grade = input.nextInt();
+                    num = input.nextInt();
                     input.nextLine();
-                    new CourseStudentsService().setCourseStudentsDao(new CourseStudentsDao()).saveOrUpdate(new Item(student, course, grade));
+                    new CourseStudentsService().saveOrUpdate(Item.builder().student(student).course(course).grade(num).build());
                 } else if (select == 2) {
-                    System.out.println("Enter student id: ");
-                    int studentId = input.nextInt();
+                    System.out.println("Enter student's id: ");
+                    int num1 = input.nextInt();
                     input.nextLine();
-                    System.out.println("Enter course id: ");
-                    int courseId = input.nextInt();
+                    System.out.println("Enter course's id: ");
+                    int num2 = input.nextInt();
                     input.nextLine();
-                    new CourseStudentsService().setCourseStudentsDao(new CourseStudentsDao()).delete(studentId, courseId);
+                    new CourseStudentsService().delete(num1, num2);
                 } else if (select == 3) {
-                    System.out.println("Enter student id: ");
-                    int studentId = input.nextInt();
+                    System.out.println("Enter student's id: ");
+                    int num1 = input.nextInt();
                     input.nextLine();
-                    System.out.println("Enter course id: ");
-                    int courseId = input.nextInt();
+                    System.out.println("Enter course's id: ");
+                    int num2 = input.nextInt();
                     input.nextLine();
-                    System.out.println(new CourseStudentsService().setCourseStudentsDao(new CourseStudentsDao()).loadById(studentId, courseId));
+                    System.out.println(new CourseStudentsService().loadById(num1, num2));
                 } else if (select == 4) {
-                    System.out.println(new CourseStudentsService().setCourseStudentsDao(new CourseStudentsDao()).loadAll());
+                    System.out.println(new CourseStudentsService().loadAll());
                 }
             } else if (select == 5) {
                 break;
-            } else {
-                System.out.println("Try again");
             }
         }
     }

@@ -40,7 +40,7 @@ public class MajorDao implements BaseDao<Major, Integer> {
     @Override
     public void update(Integer id, Major newEntity) {
         try (Connection connection = dataSourceConfig.createDataSource().getConnection();
-             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.major SET name = ? WHERE m_id =;" + id);) {
+             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.major SET name = ? WHERE m_id = " + id);) {
             ps.setString(1, newEntity.getName());
             ps.executeUpdate();
         } catch (SQLException e) {

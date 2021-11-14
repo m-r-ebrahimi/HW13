@@ -3,7 +3,6 @@ package school.entity;
 import java.util.Objects;
 
 public class Item {
-
     private Student student;
     private Course course;
     private Integer grade;
@@ -59,6 +58,7 @@ public class Item {
                 ", grade=" + grade +
                 '}';
     }
+
     public static ItemBuilder builder() {
         return new ItemBuilder();
     }
@@ -69,7 +69,7 @@ public class Item {
         private Integer grade;
 
         public ItemBuilder student(Student student) {
-            this.student= student;
+            this.student = student;
             return this;
         }
 
@@ -77,10 +77,12 @@ public class Item {
             this.course = course;
             return this;
         }
+
         public ItemBuilder grade(Integer grade) {
             this.grade = grade;
             return this;
         }
+
         public Item build() {
             return new Item(student, course, grade);
         }

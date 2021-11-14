@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDao implements BaseDao<Student, Integer> {
-
     private final DataSourceConfig dataSourceConfig = DataSourceConfig.getInstance();
     private Connection connection;
 
@@ -44,7 +43,7 @@ public class StudentDao implements BaseDao<Student, Integer> {
     @Override
     public void update(Integer id, Student newEntity) {
         try (Connection connection = dataSourceConfig.createDataSource().getConnection();
-             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.student SET name = ?, family_name = ?, m_id_fk = ? WHERE id =" + id);) {
+             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.student SET name = ?, family_name = ?, m_id_fk = ? WHERE id = " + id);) {
             ps.setString(1, newEntity.getName());
             ps.setString(2, newEntity.getFamilyName());
             ps.setInt(3, newEntity.getMajor().getId());
