@@ -21,7 +21,7 @@ public class CourseStudentsDao {
     public void save(Item entity) {
         try {
             connection = dataSourceConfig.createDataSource().getConnection();
-            try (PreparedStatement ps = connection.prepareStatement("INSERT INTO maktab.course_students (s_id, c_id, garde) VALUES(?, ?, ?);");) {
+            try (PreparedStatement ps = connection.prepareStatement("INSERT INTO maktab.course_students (s_id, c_id, grade) VALUES(?, ?, ?);");) {
                 ps.setInt(1, entity.getStudent().getId());
                 ps.setInt(2, entity.getCourse().getId());
                 ps.setInt(3, entity.getGrade());
@@ -41,7 +41,7 @@ public class CourseStudentsDao {
 
     public void update(Integer id, Integer id2, Item newEntity) {
         try (Connection connection = dataSourceConfig.createDataSource().getConnection();
-             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.course_students SET garde = ? WHERE s_id =" + id + " AND c_id =;" + id2);) {
+             PreparedStatement ps = connection.prepareStatement("UPDATE maktab.course_students SET grade = ? WHERE s_id =" + id + " AND c_id =" + id2);) {
             ps.setInt(1, newEntity.getGrade());
             ps.executeUpdate();
         } catch (SQLException e) {
