@@ -51,7 +51,7 @@ public class Menu {
                 select = input.nextInt();
                 input.nextLine();
                 if (select == 1) {
-                    System.out.println("Enter student name: ");
+                    System.out.println("Enter major name: ");
                     String name = input.nextLine();
                     new MajorService().saveOrUpdate(Major.builder().name(name).build());
                 } else if (select == 2) {
@@ -143,9 +143,7 @@ public class Menu {
                 2.major
                 3.course
                 4.grade
-                5.exit
-                                    
-                """);
+                5.exit""");
     }
 
     public void printOptions() {
@@ -155,9 +153,7 @@ public class Menu {
                 1.add
                 2.del
                 3.readById
-                4.readAll
-                                        
-                """);
+                4.readAll""");
     }
 }
 
